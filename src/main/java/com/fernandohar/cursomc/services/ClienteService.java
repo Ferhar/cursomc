@@ -13,12 +13,23 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 	
-	public Cliente buscar(Integer id) {
+	public Cliente find(Integer id) {
 		Cliente obj = repo.findOne(id);
-		if(obj == null) {
-			throw new ObjectNotFoundException("Obejto nao encontrado!ID: " +id
-					 + ", Tipo: " + Cliente.class.getName());
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
+					+ ", Tipo: " + Cliente.class.getName());
 		}
 		return obj;
 	}
+	
+	public void insert(Cliente obj) {
+		obj.setId(null);
+		repo.save(obj);
+	}
+	
+	public Cliente update(Cliente obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+
 }
