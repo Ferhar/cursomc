@@ -17,7 +17,7 @@ import com.fernandohar.cursomc.domain.Cliente;
  	@Length(min = 5, max = 80, message = "Deve conter entre 5 e 80 caracteres.")
  	private String nome;
  	
- 	@Email
+ 	@Email(message = "email invalido")
  	@NotEmpty(message = "Campo obrigatório")
  	private String email;
  	
