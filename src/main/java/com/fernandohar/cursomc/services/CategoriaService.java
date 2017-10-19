@@ -30,9 +30,9 @@ public class CategoriaService {
 		return obj;
 	}
 	
-	public void insert(Categoria obj) {
+	public Categoria insert(Categoria obj) {
 		obj.setId(null);
-		repo.save(obj);
+		return repo.save(obj);
 	}
 	
 	public Categoria update(Categoria obj) {

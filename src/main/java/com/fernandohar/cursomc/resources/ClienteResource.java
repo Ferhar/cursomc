@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fernandohar.cursomc.domain.Cliente;
 import com.fernandohar.cursomc.dto.ClienteDTO;
+import com.fernandohar.cursomc.dto.ClienteNewDto;
 import com.fernandohar.cursomc.services.ClienteService;
 
 @RestController
@@ -32,18 +33,6 @@ public class ClienteResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> inserir(@RequestBody Cliente obj) {
-		
-		service.insert(obj);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-				
-				return ResponseEntity.created(uri).build();
-		
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
@@ -77,4 +66,19 @@ public class ClienteResource {
 	 	Page<ClienteDTO> resultDTO = result.map(obj -> new ClienteDTO(obj));
 	 	return ResponseEntity.ok().body(resultDTO);
 	 }
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteNewDto objDto) {
+		
+		Cliente obj = service.fromDto(objDto);
+		obj = service.insert(obj);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+				
+				return ResponseEntity.created(uri).build();
+		
+	}
+	
+	
 }
