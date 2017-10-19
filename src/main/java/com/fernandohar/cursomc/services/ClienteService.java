@@ -14,7 +14,7 @@ import com.fernandohar.cursomc.domain.Cliente;
 import com.fernandohar.cursomc.domain.Endereco;
 import com.fernandohar.cursomc.domain.enums.TipoCliente;
 import com.fernandohar.cursomc.dto.ClienteDTO;
-import com.fernandohar.cursomc.dto.ClienteNewDto;
+import com.fernandohar.cursomc.dto.ClienteNewDTO;
 import com.fernandohar.cursomc.repositories.CidadeRepository;
 import com.fernandohar.cursomc.repositories.ClienteRepository;
 import com.fernandohar.cursomc.repositories.EnderecoRepository;
@@ -78,7 +78,7 @@ public class ClienteService {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
 	}
 	
-	public Cliente fromDto(ClienteNewDto objDto) {
+	public Cliente fromDto(ClienteNewDTO objDto) {
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
 		Cidade cid = cidadeRepository.findOne(objDto.getCidadeId());
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
